@@ -74,7 +74,7 @@ const reorder = (list, startIndex, endIndex) => {
 
 const queryAttr = "data-rbd-drag-handle-draggable-id";
 
-const TodoCreate = ({ title, backcolor,idx }) => {
+const TodoCreate = ({ title, backcolor }) => {
     const onDragEnd = (result) => {
         if (!result.destination) {
             return;
