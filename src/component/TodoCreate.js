@@ -89,7 +89,7 @@ const TodoCreate = ({ title, backcolor }) => {
 
                 <Count>{todoList.length}</Count>
             </ListTop>
-            <DragDropContext onDragEnd={handleDragEnd}>
+          
                 {todoList.map(todo => {
                     return (
                         <List
@@ -101,7 +101,7 @@ const TodoCreate = ({ title, backcolor }) => {
                     )
                 })
                 }
-            </DragDropContext>
+       
             <InputBox onKeyPress={handleKeyPress}>
                 <TodoInput
                     value={input} onInput={(e) => setInput(e.target.value)}
