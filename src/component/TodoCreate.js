@@ -1,9 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useState } from "react";
-
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-
 
 const TodoListBox = styled.div`
   padding: 10px;
@@ -66,22 +64,18 @@ const ListTop = styled.div`
 
 
 
-// a little function to help us with reordering the result
+
 const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
-
     return result;
 };
 
-
-
 const queryAttr = "data-rbd-drag-handle-draggable-id";
 
-const TodoCreate = ({ title, backcolor }) => {
+const TodoCreate = ({ title, backcolor,idx }) => {
     const onDragEnd = (result) => {
-        // dropped outside the list
         if (!result.destination) {
             return;
         }
@@ -119,7 +113,6 @@ const TodoCreate = ({ title, backcolor }) => {
     }
     return (
         <TodoListBox>
-
             <ListTop>
                 <ListName color={backcolor}>{title}</ListName>
 

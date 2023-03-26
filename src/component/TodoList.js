@@ -7,7 +7,8 @@ const TodoListBox = styled.div`
     display: flex;
     border-top: 1px solid #d3d3d3;
 `;
-
+const Add = styled.button`
+`;
 const TodoList = () => {
 
    
