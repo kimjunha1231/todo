@@ -9,7 +9,7 @@ const TodoListBox = styled.div`
 `;
 
 const TodoList = () => {
-    const [countList, setCountList] = useState([0])
+
    
     return (
         <TodoListBox>

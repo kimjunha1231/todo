@@ -80,17 +80,12 @@ const reorder = (list, startIndex, endIndex) => {
 const queryAttr = "data-rbd-drag-handle-draggable-id";
 
 const TodoCreate = ({ title, backcolor }) => {
-    const [placeholderProps, setPlaceholderProps] = useState({});
-
     const onDragEnd = (result) => {
         // dropped outside the list
         if (!result.destination) {
             return;
         }
-
-        setPlaceholderProps({});
         setTodoList(items => reorder(items, result.source.index, result.destination.index));
-	
     };
 
     const onDragUpdate = (update) => {
@@ -98,37 +93,13 @@ const TodoCreate = ({ title, backcolor }) => {
             return;
         }
         const draggableId = update.draggableId;
-        const destinationIndex = update.destination.index;
-
         const domQuery = `[${queryAttr}='${draggableId}']`;
         const draggedDOM = document.querySelector(domQuery);
         if (!draggedDOM) {
             return;
         }
-        const { clientHeight, clientWidth } = draggedDOM;
-
-        const clientY =
-            parseFloat(window.getComputedStyle(draggedDOM.parentNode).paddingTop) +
-            [...draggedDOM.parentNode.children]
-                .slice(0, destinationIndex)
-                .reduce((total, curr) => {
-                    const style = curr.currentStyle || window.getComputedStyle(curr);
-                    const marginBottom = parseFloat(style.marginBottom);
-                    return total + curr.clientHeight + marginBottom;
-                }, 0);
-
-        setPlaceholderProps({
-            clientHeight,
-            clientWidth,
-            clientY,
-            clientX: parseFloat(
-                window.getComputedStyle(draggedDOM.parentNode).paddingLeft
-            ),
-        });
-    };
-
+    }
     const [input, setInput] = useState();
-
     const [todoList, setTodoList] = useState([]);
     const handleClick = () => {
         const id = todoList.length + 1;
@@ -163,9 +134,9 @@ const TodoCreate = ({ title, backcolor }) => {
                         >
                             {todoList.map((item, index) => (
                                 <Draggable
-                                key={item.id} draggableId={item.id} index={index}F
+                                    key={item.id} draggableId={item.id} index={index} F
                                 >
-                                    {(provided, ) => (
+                                    {(provided,) => (
                                         <List
                                             ref={provided.innerRef}
                                             {...provided.draggableProps}
