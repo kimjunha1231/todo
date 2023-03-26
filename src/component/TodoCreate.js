@@ -2,9 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { useState } from "react";
 import { atom } from "recoil";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { useDrag } from "react-dnd";
+
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 const TodoListBox = styled.div`
   padding: 10px;
 `;
@@ -87,15 +86,11 @@ const TodoCreate = ({ title, backcolor }) => {
             handleClick();
         }
     }
-    const [{isDragging}, drag] =useDrag(()=>({
-        type:"text",
-        collect:(monitor) => ({
-            isDragging: !!monitor.isDragging(),
-        }),
-    }));
+    const onDragEnd = () => { };
+
     return (
         <TodoListBox>
-            <DndProvider backend={HTML5Backend}>
+            <DragDropContext onDragEnd={onDragEnd}>
                 <ListTop>
                     <ListName color={backcolor}>{title}</ListName>
 
@@ -122,7 +117,7 @@ const TodoCreate = ({ title, backcolor }) => {
                     </TodoInput>
                     <Add onClick={() => handleClick()}  >추가</Add>
                 </InputBox>
-            </DndProvider>
+            </DragDropContext>
         </TodoListBox >
 
     );
