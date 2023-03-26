@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { useState } from "react";
-import { DragDropContext } from "react-beautiful-dnd";
-
-
+import { atom } from "recoil";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { useDrag } from "react-dnd";
 const TodoListBox = styled.div`
   padding: 10px;
 `;
@@ -62,9 +63,13 @@ const ListTop = styled.div`
     margin-bottom: 10px;
 `;
 
-
+export const TodoListState = atom({
+    key: "TodoListState",
+    default: [],
+})
 const TodoCreate = ({ title, backcolor }) => {
     const [input, setInput] = useState();
+
     const [todoList, setTodoList] = useState([]);
     const handleClick = () => {
         const id = todoList.length + 1;
@@ -82,14 +87,20 @@ const TodoCreate = ({ title, backcolor }) => {
             handleClick();
         }
     }
+    const [{isDragging}, drag] =useDrag(()=>({
+        type:"text",
+        collect:(monitor) => ({
+            isDragging: !!monitor.isDragging(),
+        }),
+    }));
     return (
         <TodoListBox>
-            <ListTop>
-                <ListName color={backcolor}>{title}</ListName>
+            <DndProvider backend={HTML5Backend}>
+                <ListTop>
+                    <ListName color={backcolor}>{title}</ListName>
 
-                <Count>{todoList.length}</Count>
-            </ListTop>
-          
+                    <Count>{todoList.length}</Count>
+                </ListTop>
                 {todoList.map(todo => {
                     return (
                         <List
@@ -101,16 +112,17 @@ const TodoCreate = ({ title, backcolor }) => {
                     )
                 })
                 }
-       
-            <InputBox onKeyPress={handleKeyPress}>
-                <TodoInput
-                    value={input} onInput={(e) => setInput(e.target.value)}
-                    type="textarea"
-                    placeholder="새로 만들기"
-                >
-                </TodoInput>
-                <Add onClick={() => handleClick()}  >추가</Add>
-            </InputBox>
+
+                <InputBox onKeyPress={handleKeyPress}>
+                    <TodoInput
+                        value={input} onInput={(e) => setInput(e.target.value)}
+                        type="textarea"
+                        placeholder="새로 만들기"
+                    >
+                    </TodoInput>
+                    <Add onClick={() => handleClick()}  >추가</Add>
+                </InputBox>
+            </DndProvider>
         </TodoListBox >
 
     );
