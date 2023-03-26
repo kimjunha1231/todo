@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useState } from "react";
-import {}
+import { DragDropContext } from "react-beautiful-dnd";
 
 
 const TodoListBox = styled.div`
@@ -89,17 +89,19 @@ const TodoCreate = ({ title, backcolor }) => {
 
                 <Count>{todoList.length}</Count>
             </ListTop>
-            {todoList.map(todo => {
-                return (
-                    <List
+            <DragDropContext onDragEnd={handleDragEnd}>
+                {todoList.map(todo => {
+                    return (
+                        <List
 
-                        id={todo.id}
-                    >
-                        {todo.content}
-                    </List>
-                )
-            })
-            }
+                            id={todo.id}
+                        >
+                            {todo.content}
+                        </List>
+                    )
+                })
+                }
+            </DragDropContext>
             <InputBox onKeyPress={handleKeyPress}>
                 <TodoInput
                     value={input} onInput={(e) => setInput(e.target.value)}
