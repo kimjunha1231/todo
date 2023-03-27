@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-
 const TodoListBox = styled.div`
   padding: 10px;
     width: 400px;
@@ -109,7 +108,7 @@ const TodoCreate = ({ title, backcolor }) => {
     }
     
     const handleClick = () => {
-        const id = todoList.length + 1;
+        const id = todoList.length ;
         setTodoList(prev => [
             ...prev,
             {
@@ -132,7 +131,6 @@ const TodoCreate = ({ title, backcolor }) => {
         <TodoListBox>
             <ListTop>
                 <ListName color={backcolor}>{title}</ListName>
-
                 <Count>{todoList.length}</Count>
             </ListTop>
             <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
