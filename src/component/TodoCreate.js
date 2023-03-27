@@ -5,6 +5,9 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 const TodoListBox = styled.div`
   padding: 10px;
+    width: 400px;
+    flex-wrap: wrap;
+
 `;
 const TodoInput = styled.input`
     font-size: 18px;
@@ -46,6 +49,10 @@ const List = styled.div`
     border: 1px solid #d3d3d3;
     padding: 10px;
     margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+
+    
 `;
 const ListName = styled.div`
     font-size: 20px;
@@ -62,6 +69,11 @@ const ListTop = styled.div`
     margin-bottom: 10px;
 `;
 
+const Delete = styled.button`
+    background-color: #d3d3d3;
+    border-radius: 4px;
+    border: none;
+`;
 
 
 
@@ -75,6 +87,8 @@ const reorder = (list, startIndex, endIndex) => {
 const queryAttr = "data-rbd-drag-handle-draggable-id";
 
 const TodoCreate = ({ title, backcolor }) => {
+    const [input, setInput] = useState();
+    const [todoList, setTodoList] = useState([]);
     const onDragEnd = (result) => {
         if (!result.destination) {
             return;
@@ -93,8 +107,7 @@ const TodoCreate = ({ title, backcolor }) => {
             return;
         }
     }
-    const [input, setInput] = useState();
-    const [todoList, setTodoList] = useState([]);
+    
     const handleClick = () => {
         const id = todoList.length + 1;
         setTodoList(prev => [
@@ -106,6 +119,10 @@ const TodoCreate = ({ title, backcolor }) => {
         ]);
         setInput("")
     }
+    const handleDelete = (id) =>{
+        setTodoList((todoList) => todoList.filter((todo) => todo.id !==id));
+    };
+   
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
             handleClick();
@@ -136,6 +153,7 @@ const TodoCreate = ({ title, backcolor }) => {
                                             {...provided.dragHandleProps}
                                         >
                                             {item.content}
+                                            <Delete onClick={() =>handleDelete(item.id)} >삭제</Delete>
                                         </List>
                                     )}
                                 </Draggable>

@@ -5,7 +5,6 @@ import { useState } from "react";
 import { atom, useRecoilState } from 'recoil';
 
 const TodoListBox = styled.div`
-
 `;
 const Add = styled.button`
 outline: none;
@@ -20,7 +19,6 @@ const Inputs = styled.input`
    outline: none;
    padding: 20px;
    margin-right: 10px;
-
    ::placeholder {
     color: red;
     font-size: 18px;

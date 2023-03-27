@@ -7,8 +7,8 @@ import { todoState } from "./TodoListAdd";
 
 
 const TodoListBox = styled.div`
-display: flex;
-   align-items: center;
+    display: flex;
+    align-items: center;
     margin-top: 10px;
 
 `;
