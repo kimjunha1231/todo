@@ -2,8 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import { useRecoilState } from "recoil";
-import { todoState } from "./TodoListAdd";
+
 const TodoListBox = styled.div`
   padding: 10px;
     width: 400px;
@@ -88,7 +87,7 @@ const reorder = (list, startIndex, endIndex) => {
 const queryAttr = "data-rbd-drag-handle-draggable-id";
 
 const TodoCreate = ({ title, backcolor }) => {
-    const todo = useRecoilState(todoState);
+    
 
     const [input, setInput] = useState();
     const [todoList, setTodoList] = useState([]);
@@ -137,7 +136,7 @@ const TodoCreate = ({ title, backcolor }) => {
             <ListTop>
                 <ListName color={backcolor}>{title}</ListName>
                 <Count>{todoList.length}</Count>
-                <Delete >삭제{todo[0]}</Delete>
+                <Delete >삭제</Delete>
             </ListTop>
             <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
                 <Droppable droppableId="droppable">
