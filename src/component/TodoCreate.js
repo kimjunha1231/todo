@@ -136,7 +136,6 @@ const TodoCreate = ({ title, backcolor }) => {
             <ListTop>
                 <ListName color={backcolor}>{title}</ListName>
                 <Count>{todoList.length}</Count>
-                <Delete >삭제</Delete>
             </ListTop>
             <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
                 <Droppable droppableId="droppable">
