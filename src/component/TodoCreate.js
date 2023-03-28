@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { useRecoilState } from "recoil";
+import { todoState } from "./TodoListAdd";
 const TodoListBox = styled.div`
   padding: 10px;
     width: 400px;
@@ -86,6 +88,8 @@ const reorder = (list, startIndex, endIndex) => {
 const queryAttr = "data-rbd-drag-handle-draggable-id";
 
 const TodoCreate = ({ title, backcolor }) => {
+    const todo = useRecoilState(todoState);
+
     const [input, setInput] = useState();
     const [todoList, setTodoList] = useState([]);
     const onDragEnd = (result) => {
@@ -106,9 +110,9 @@ const TodoCreate = ({ title, backcolor }) => {
             return;
         }
     }
-    
+
     const handleClick = () => {
-        const id = todoList.length ;
+        const id = todoList.length + 1;
         setTodoList(prev => [
             ...prev,
             {
@@ -117,11 +121,12 @@ const TodoCreate = ({ title, backcolor }) => {
             }
         ]);
         setInput("")
+     
     }
-    const handleDelete = (id) =>{
-        setTodoList((todoList) => todoList.filter((todo) => todo.id !==id));
+    const handleDelete = (id) => {
+        setTodoList((todoList) => todoList.filter((todo) => todo.id !== id));
     };
-   
+
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
             handleClick();
@@ -132,6 +137,7 @@ const TodoCreate = ({ title, backcolor }) => {
             <ListTop>
                 <ListName color={backcolor}>{title}</ListName>
                 <Count>{todoList.length}</Count>
+                <Delete >삭제{todo[0]}</Delete>
             </ListTop>
             <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
                 <Droppable droppableId="droppable">
@@ -151,7 +157,7 @@ const TodoCreate = ({ title, backcolor }) => {
                                             {...provided.dragHandleProps}
                                         >
                                             {item.content}
-                                            <Delete onClick={() =>handleDelete(item.id)} >삭제</Delete>
+                                            <Delete onClick={() => handleDelete(item.id)} >삭제</Delete>
                                         </List>
                                     )}
                                 </Draggable>
