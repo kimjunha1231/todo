@@ -11,7 +11,7 @@ outline: none;
 margin-left: 10px;
 padding: 10px;
 border-radius: 7px;
-background-color: white;
+background-color: red;
 border: 1px solid blue;
 
 `;
